@@ -11,24 +11,27 @@ public class Post {
     private String description;
     @Property(name = "likes")
     private Long likes;
+    @Property(name = "userid")
+    private Long userid;
     @Property(name = "latitude")
     private Double latitude;
     @Property(name = "longitude")
     private Double longitude;
 
-    public Post(String description, Long likes, Double latitude, Double longitude) {
+    public Post(String description, Long likes, Double latitude, Double longitude, Long userid) {
         this.id = null;
         this.description = description;
         this.likes = likes;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.userid = userid;
     }
 
     public Post withId(Long id) {
         if (this.id.equals(id)) {
             return this;
         } else {
-            return new Post(this.description, this.likes, this.latitude, this.longitude);
+            return new Post(this.description, this.likes, this.latitude, this.longitude, this.userid);
         }
     }
 

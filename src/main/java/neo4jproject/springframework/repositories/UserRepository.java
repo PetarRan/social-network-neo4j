@@ -34,7 +34,7 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
             "DETACH DELETE n")
     void deleteUser(@Param("id") Long id);
 
-    @Query("MATCH (n:Firma)\n" +
+    @Query("MATCH (n:User)\n" +
             "WHERE id(n) = $id\n" +
             "SET n={phoneNumber: $phoneNumber, imageUrl: $imageUrl} \n")
     void updateUser(@Param("id") Long id, @Param("phoneNumber") String phoneNumber, @Param("imageUrl")String imageUrl);
