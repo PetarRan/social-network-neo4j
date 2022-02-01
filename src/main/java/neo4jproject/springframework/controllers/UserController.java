@@ -32,22 +32,4 @@ public class UserController {
     }
 
 
-    @RequestMapping({"/product/list", "/product"})
-    public String listProducts(Model model){
-        model.addAttribute("products", userService.listAll());
-        return "product/list";
-    }
-
-    @RequestMapping("/product/show/{id}")
-    public String getProduct(@PathVariable String id, Model model){
-        model.addAttribute("product", userService.getById(Long.valueOf(id)));
-        return "product/show";
-    }
-
-
-    @RequestMapping("/product/delete/{id}")
-    public String delete(@PathVariable String id){
-        userService.delete(Long.valueOf(id));
-        return "redirect:/product/list";
-    }
 }

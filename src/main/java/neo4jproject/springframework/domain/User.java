@@ -1,12 +1,15 @@
 package neo4jproject.springframework.domain;
 
+import jdk.vm.ci.meta.Local;
 import org.neo4j.ogm.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
-@NodeEntity(label = "Post")
+@NodeEntity(label = "User")
 public class User {
 
     @Id
@@ -14,8 +17,6 @@ public class User {
     private Long id;
     @Property(name = "email")
     private String email;
-    @Property(name = "description")
-    private String description;
     @Property(name = "imageUrl")
     private String imageUrl;
     @Property(name = "firstName")
@@ -36,13 +37,12 @@ public class User {
     @Relationship(type = "Posted")
     private List<Post> myPosts;
 
-    public User(String email, String description,
+    public User(String email,
                 String imageUrl, String firstName,
                 String lastName, String phoneNumber,
                 Boolean isTravelling, List<User> following, List<Post> likedPosts, List<Post> myPosts) {
         this.id = null;
         this.email = email;
-        this.description = description;
         this.imageUrl = imageUrl;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -57,7 +57,7 @@ public class User {
         if (this.id.equals(id)) {
             return this;
         } else {
-            return new User(this.email, this.description, this.imageUrl, this.firstName,
+            return new User(this.email, this.imageUrl, this.firstName,
                     this.lastName, this.phoneNumber, this.isTravelling, this.following, this.likedPosts,
                     this.myPosts);
         }
@@ -143,13 +143,6 @@ public class User {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getImageUrl() {
         return imageUrl;

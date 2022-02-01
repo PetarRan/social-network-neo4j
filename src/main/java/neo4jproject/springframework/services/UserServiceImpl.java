@@ -15,40 +15,46 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository productRepository;
+    private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository productRepository) {
-        this.productRepository = productRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
 
     @Override
     public List<User> listAll() {
         List<User> products = new ArrayList<>();
-        productRepository.findAll().forEach(products::add); //fun with Java 8
+        userRepository.findAll().forEach(products::add); //fun with Java 8
         return products;
     }
 
     @Override
     public User getById(Long id) {
-        return productRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
     public User saveOrUpdate(User product) {
-        productRepository.save(product);
+        userRepository.save(product);
         return product;
     }
 
     @Override
+    public void addUser(User user) {
+
+    }
+
+
+    @Override
     public void delete(Long id) {
-        productRepository.deleteById(id);
+        userRepository.deleteById(id);
 
     }
 
     @Override
     public Collection<User> getAll() {
-        return null;
+        return userRepository.getAllUsers();
     }
 
 }

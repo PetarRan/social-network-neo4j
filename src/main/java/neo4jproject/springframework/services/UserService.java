@@ -14,6 +14,8 @@ public interface UserService {
 
     User saveOrUpdate(User product);
 
+    void addUser(User user);
+
     void delete(Long id);
 
     Collection<User> getAll();
