@@ -42,7 +42,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
-
+        userRepository.addUser(user.getEmail(), user.getImageUrl(), user.getFirstName(), user.getLastName(),
+                user.getPhoneNumber(), user.getTravelling());
     }
 
 
@@ -55,6 +56,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public Collection<User> getAll() {
         return userRepository.getAllUsers();
+    }
+
+    @Override
+    public Collection<User> getByEmail(String email) {
+        return userRepository.getByEmail(email);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.updateUser(user.getId(), user.getPhoneNumber(), user.getImageUrl());
     }
 
 }

@@ -1,28 +1,26 @@
 package neo4jproject.springframework.domain;
 
-import org.neo4j.ogm.annotation.*;
+import org.springframework.data.neo4j.core.schema.*;
 
-@RelationshipEntity(type = "Follows")
+@RelationshipProperties()
 public class Follows {
     @Id
     @GeneratedValue
     private Long id;
-    @StartNode
-    private User userFollowing;
-    @EndNode
-    private User userFollowed;
 
-    public Follows(User userFollowing, User userFollowed) {
+    @TargetNode
+    private User user;
+
+    public Follows(User user) {
         this.id = null;
-        this.userFollowing = userFollowing;
-        this.userFollowed = userFollowed;
+        this.user = user;
     }
 
     public Follows withId(Long id) {
         if (this.id.equals(id)) {
             return this;
         } else {
-            return new Follows(this.userFollowing, this.userFollowed);
+            return new Follows(this.user);
         }
     }
 
@@ -34,19 +32,11 @@ public class Follows {
         this.id = id;
     }
 
-    public User getUserFollowing() {
-        return userFollowing;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserFollowing(User userFollowing) {
-        this.userFollowing = userFollowing;
-    }
-
-    public User getUserFollowed() {
-        return userFollowed;
-    }
-
-    public void setUserFollowed(User userFollowed) {
-        this.userFollowed = userFollowed;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

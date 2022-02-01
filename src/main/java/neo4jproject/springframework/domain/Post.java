@@ -1,11 +1,8 @@
 package neo4jproject.springframework.domain;
 
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Property;
+import org.springframework.data.neo4j.core.schema.*;
 
-@NodeEntity(label = "Post")
+@Node("Post")
 public class Post {
     @Id
     @GeneratedValue

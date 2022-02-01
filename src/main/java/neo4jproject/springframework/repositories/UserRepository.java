@@ -1,8 +1,8 @@
 package neo4jproject.springframework.repositories;
 
 import neo4jproject.springframework.domain.User;
-import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
+import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
@@ -14,8 +14,13 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
     @Query("MATCH (n:User) return n")
     Collection<User> getAllUsers();
 
-    @Query("CREATE(User:User {email: $email, birthday: $birthday, imageUrl: $imageUrl, firstName:$firstName, lastName:$lastName, phoneNumber:$phoneNumber, isTravelling:$isTravelling})")
-    void addUser(@Param("email") String email, @Param("birthday") LocalDateTime birthday, @Param("imageUrl")String imageUrl,
+    @Query("MATCH (n:User)\n" +
+            "WHERE email(n) = $email\n" +
+            "return n")
+    Collection<User> getByEmail(@Param("email") String email);
+
+    @Query("CREATE(User:User {email: $email, imageUrl: $imageUrl, firstName:$firstName, lastName:$lastName, phoneNumber:$phoneNumber, isTravelling:$isTravelling})")
+    void addUser(@Param("email") String email, @Param("imageUrl")String imageUrl,
                  @Param("firstName") String firstName, @Param("lastName") String lastName,
                  @Param("phoneNumber") String phoneNumber,
                  @Param("isTravelling")Boolean isTravelling);
@@ -32,7 +37,7 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
     @Query("MATCH (n:Firma)\n" +
             "WHERE id(n) = $id\n" +
             "SET n={phoneNumber: $phoneNumber, imageUrl: $imageUrl} \n")
-    void updateFirma(@Param("id") Long id, @Param("phoneNumber") String phoneNumber, @Param("imageUrl")String imageUrl);
+    void updateUser(@Param("id") Long id, @Param("phoneNumber") String phoneNumber, @Param("imageUrl")String imageUrl);
 
     @Query("MATCH (n:User) DETACH DELETE n")
     void deleteAllFirma();

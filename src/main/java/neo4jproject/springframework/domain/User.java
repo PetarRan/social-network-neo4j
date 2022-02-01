@@ -1,7 +1,6 @@
 package neo4jproject.springframework.domain;
 
-import jdk.vm.ci.meta.Local;
-import org.neo4j.ogm.annotation.*;
+import org.springframework.data.neo4j.core.schema.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
-@NodeEntity(label = "User")
+@Node("User")
 public class User {
 
     @Id
@@ -28,13 +27,13 @@ public class User {
     @Property(name = "travelling")
     private Boolean isTravelling;
 
-    @Relationship(type = "Follows")
+    @Relationship(type = "Follows", direction = Relationship.Direction.OUTGOING)
     private List<User> following;
 
-    @Relationship(type = "Liked")
+    @Relationship(type = "Liked", direction = Relationship.Direction.OUTGOING)
     private List<Post> likedPosts;
 
-    @Relationship(type = "Posted")
+    @Relationship(type = "Posted", direction = Relationship.Direction.OUTGOING)
     private List<Post> myPosts;
 
     public User(String email,

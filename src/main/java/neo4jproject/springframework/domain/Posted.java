@@ -1,20 +1,18 @@
 package neo4jproject.springframework.domain;
 
-import org.neo4j.ogm.annotation.*;
+import org.springframework.data.neo4j.core.schema.*;
 
-@RelationshipEntity(type = "Posted")
+@RelationshipProperties()
 public class Posted {
     @Id
     @GeneratedValue
     private Long id;
-    @StartNode
-    private User user;
-    @EndNode
+
+    @TargetNode
     private Post post;
 
     public Posted(User user, Post post) {
         this.id = null;
-        this.user = user;
         this.post = post;
     }
 
@@ -24,14 +22,6 @@ public class Posted {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Post getPost() {

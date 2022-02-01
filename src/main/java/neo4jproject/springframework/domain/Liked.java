@@ -1,20 +1,20 @@
 package neo4jproject.springframework.domain;
 
-import org.neo4j.ogm.annotation.*;
+import org.springframework.data.neo4j.core.schema.*;
 
-@RelationshipEntity(type = "Liked")
+import java.lang.annotation.Target;
+
+@RelationshipProperties()
 public class Liked {
     @Id
     @GeneratedValue
     private Long id;
-    @StartNode
-    private User user;
-    @EndNode
+
+    @TargetNode
     private Post post;
 
-    public Liked(User user, Post post) {
+    public Liked(Post post) {
         this.id = null;
-        this.user = user;
         this.post = post;
     }
 
@@ -22,7 +22,7 @@ public class Liked {
         if (this.id.equals(id)) {
             return this;
         } else {
-            return new Liked(this.user, this.post);
+            return new Liked(this.post);
         }
     }
 
@@ -32,14 +32,6 @@ public class Liked {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Post getPost() {

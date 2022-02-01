@@ -19,4 +19,7 @@ public interface UserService {
     void delete(Long id);
 
     Collection<User> getAll();
+    Collection<User> getByEmail(String email);
+
+    void updateUser(User user);
 }
