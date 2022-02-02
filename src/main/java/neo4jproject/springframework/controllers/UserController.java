@@ -28,11 +28,25 @@ public class UserController {
         return userService.getAll();
     }
 
+    @GetMapping(
+            value = "/getByMail/{mail}"
+    )
+    public User getByMail(@PathVariable("mail")String email) {
+        return userService.getByEmail(email);
+    }
+
+    @GetMapping(
+            value = "/allMyFollowers/{mail}"
+    )
+    public Collection<User> findAllMyFollowers(@PathVariable("mail")String email) {
+        return userService.getMyFollowers(email);
+    }
+
     @PostMapping(
             value = "/addUser",
             produces = {"application/json"}
     )
-    public HttpStatus addFirma(@RequestBody(required = true) User user) {
+    public HttpStatus addUser(@RequestBody(required = true) User user) {
         try {
             userService.addUser(user);
         } catch (RuntimeException e) {
@@ -45,7 +59,7 @@ public class UserController {
             value = "/updateUser",
             produces = {"application/json"}
     )
-    public HttpStatus updateFirma(@RequestBody(required = true) User user) {
+    public HttpStatus updateUser(@RequestBody(required = true) User user) {
         try {
             userService.updateUser(user);
         } catch (RuntimeException e) {

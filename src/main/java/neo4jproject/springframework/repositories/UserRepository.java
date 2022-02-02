@@ -15,9 +15,9 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
     Collection<User> getAllUsers();
 
     @Query("MATCH (n:User)\n" +
-            "WHERE email(n) = $email\n" +
+            "WHERE n.email = $email\n" +
             "return n")
-    Collection<User> getByEmail(@Param("email") String email);
+    User getByEmail(@Param("email") String email);
 
     @Query("CREATE(User:User {email: $email, imageUrl: $imageUrl, firstName:$firstName, lastName:$lastName, phoneNumber:$phoneNumber, isTravelling:$isTravelling})")
     void addUser(@Param("email") String email, @Param("imageUrl")String imageUrl,
@@ -30,16 +30,22 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
                  @Param("firstName") String firstName, @Param("lastName") String lastName);
 
     @Query("MATCH (n:User)\n" +
-            "WHERE id(n) = $id\n" +
+            "WHERE n.email = $email\n" +
             "DETACH DELETE n")
-    void deleteUser(@Param("id") Long id);
+    void deleteUser(@Param("email")String email);
 
     @Query("MATCH (n:User)\n" +
-            "WHERE id(n) = $id\n" +
-            "SET n={phoneNumber: $phoneNumber, imageUrl: $imageUrl} \n")
-    void updateUser(@Param("id") Long id, @Param("phoneNumber") String phoneNumber, @Param("imageUrl")String imageUrl);
+            "WHERE n.email = $email\n" +
+            "SET n={email: $email, imageUrl: $imageUrl, firstName:$firstName, lastName:$lastName, phoneNumber:$phoneNumber, isTravelling:$isTravelling}")
+    void updateUser(@Param("email") String email, @Param("imageUrl")String imageUrl,
+                    @Param("firstName") String firstName, @Param("lastName") String lastName,
+                    @Param("phoneNumber") String phoneNumber,
+                    @Param("isTravelling")Boolean isTravelling);
 
     @Query("MATCH (n:User) DETACH DELETE n")
     void deleteAllFirma();
+
+    @Query("MATCH(n:User{email: $mail})-[r:Follows]->(p:User) return p")
+    Collection<User> findAllMyFollowers(@Param("mail")String mail);
 
 }

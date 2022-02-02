@@ -11,16 +11,20 @@ public class Follows {
     @TargetNode
     private User user;
 
-    public Follows(User user) {
+    @Property
+    private String followedId;
+
+    public Follows(User user, String followedId) {
         this.id = null;
         this.user = user;
+        this.followedId = followedId;
     }
 
     public Follows withId(Long id) {
         if (this.id.equals(id)) {
             return this;
         } else {
-            return new Follows(this.user);
+            return new Follows(this.user, this.followedId);
         }
     }
 

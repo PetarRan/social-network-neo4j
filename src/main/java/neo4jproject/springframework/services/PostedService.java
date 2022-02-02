@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface PostedService {
     List<Posted> listAll();
+
+    void addPostedLink(String email);
 }

@@ -19,7 +19,9 @@ public interface UserService {
     void delete(Long id);
 
     Collection<User> getAll();
-    Collection<User> getByEmail(String email);
+    User getByEmail(String email);
 
     void updateUser(User user);
+
+    Collection<User> getMyFollowers(String email);
 }

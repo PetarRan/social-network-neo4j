@@ -19,4 +19,9 @@ public class PostedServiceImpl implements PostedService {
     public List<Posted> listAll() {
         return null;
     }
+
+    @Override
+    public void addPostedLink(String email) {
+        postedRepository.addPosted(email);
+    }
 }

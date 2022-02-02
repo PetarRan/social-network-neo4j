@@ -9,14 +9,11 @@ public interface PostedRepository extends Neo4jRepository<Posted, Long> {
     @Query("MATCH\n" +
             "(a:User),\n" +
             "(b:Post)\n" +
-            "WHERE a.id = $id AND b.userid = $userid\n" +
-            "CREATE (a)-[r:Posted {}]->(b)\n" +
+            "WHERE a.email = $userid AND b.userid = $userid\n" +
+            "MERGE (a)-[r:Posted]->(b)\n" +
             "RETURN type(r)")
-    void addPosted(@Param("id")Long id, @Param("userid") Long userid);
+    void addPosted(@Param("userid") String userid);
 
-    @Query("MATCH (a:User)-[p:Posted]->(b:Post)\n" +
-            "WHERE id(a) = $id AND id(b) = $userid\n" +
-            "SET p={}\n" +
-            "RETURN p")
-    void updatePosted(@Param("id")Long id, @Param("userid") Long userid);
+    @Query("MATCH (a:User{email = $userid})-[p:Posted]->(b:Post) return p, a, b")
+    void getPostedLinks(@Param("userid") String userid);
 }

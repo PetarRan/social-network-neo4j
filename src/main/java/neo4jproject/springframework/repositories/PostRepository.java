@@ -9,16 +9,20 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 
 public interface PostRepository extends Neo4jRepository<Post, Long> {
-    @Query("CREATE(Post:Post {description: $description, likes: $likes, latitude:$latitude, longitude:$longitude})")
+    @Query("CREATE(Post:Post {description: $description, likes: $likes, latitude:$latitude, longitude:$longitude, location:$location, userid:$userid})")
     void addPost(@Param("description") String description,
-                 @Param("likes")Long likes,
-                 @Param("latitude")Double latitude, @Param("longitude")Double longitude);
+                 @Param("likes")Integer likes,
+                 @Param("latitude")Double latitude, @Param("longitude")Double longitude,
+                 @Param("location")String location, @Param("userid")String userid);
 
     @Query("MATCH (n:Firma)\n" +
             "WHERE id(n) = $id\n" +
             "SET n={likes: $likes} \n")
     void likePost(@Param("id") Long id, @Param("likes")Long likes);
 
-    @Query("MATCH (n:User) return n")
+    @Query("MATCH (n:Post) return n")
     Collection<Post> getAllPosts();
+
+    @Query("MATCH(n:User{email: $mail})--(p:User)--(d:Post) return d")
+    Collection<Post> findMyFollowersPost(@Param("mail") String email);
 }
