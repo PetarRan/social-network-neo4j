@@ -44,4 +44,9 @@ public class PostServiceImpl implements  PostService{
     public Collection<Post> getMyFollowersPosts(String email) {
         return postRepository.findMyFollowersPost(email);
     }
+
+    @Override
+    public Collection<Post> findLikedPosts(String email) {
+        return postRepository.findLikedPosts(email);
+    }
 }

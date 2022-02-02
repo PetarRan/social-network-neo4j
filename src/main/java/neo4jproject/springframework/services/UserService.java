@@ -24,4 +24,6 @@ public interface UserService {
     void updateUser(User user);
 
     Collection<User> getMyFollowers(String email);
+
+    void deleteProfile(User user);
 }

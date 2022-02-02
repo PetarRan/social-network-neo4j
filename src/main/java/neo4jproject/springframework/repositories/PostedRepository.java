@@ -14,6 +14,9 @@ public interface PostedRepository extends Neo4jRepository<Posted, Long> {
             "RETURN type(r)")
     void addPosted(@Param("userid") String userid);
 
-    @Query("MATCH (a:User{email = $userid})-[p:Posted]->(b:Post) return p, a, b")
+    @Query("MATCH (a:User{email : $userid})-[p:Posted]->(b:Post) return p, a, b")
     void getPostedLinks(@Param("userid") String userid);
+
+    @Query("MATCH (a:User{email : $userid})-[p:Posted]->(b:Post) DETACH DELETE b")
+    void deleteUsersPosts(@Param("userid") String userid);
 }

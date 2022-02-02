@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface LikedService {
     List<Liked> listAll();
+
+    void addLikedPost(String description, String email);
 }

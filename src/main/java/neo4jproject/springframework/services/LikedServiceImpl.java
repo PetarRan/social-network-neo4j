@@ -18,4 +18,9 @@ public class LikedServiceImpl implements LikedService {
     public List<Liked> listAll() {
         return null;
     }
+
+    @Override
+    public void addLikedPost(String description, String email) {
+        likedRepository.addLiked(email, description);
+    }
 }

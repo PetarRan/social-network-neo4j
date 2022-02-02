@@ -68,5 +68,18 @@ public class UserController {
         return HttpStatus.ACCEPTED;
     }
 
+    @DeleteMapping(
+            value = "/deleteProfile",
+            produces = {"application/json"}
+    )
+    public HttpStatus unfollowUser(@RequestBody(required = true) User user) {
+        try {
+            userService.deleteProfile(user);
+        } catch (RuntimeException e) {
+            return HttpStatus.BAD_REQUEST;
+        }
+        return HttpStatus.ACCEPTED;
+    }
+
 
 }

@@ -9,8 +9,8 @@ public interface LikedRepository extends Neo4jRepository<Liked, Long> {
     @Query("MATCH\n" +
             "(a:User),\n" +
             "(b:Post)\n" +
-            "WHERE a.id = $id AND b.userid = $userid\n" +
-            "CREATE (a)-[r:Liked {}]->(b)\n" +
+            "WHERE a.email = $user1 AND b.description = $description\n" +
+            "MERGE (a)-[r:Liked]->(b)\n" +
             "RETURN type(r)")
-    void addLiked(@Param("id")Long id, @Param("userid") Long userid);
+    void addLiked(@Param("user1")String email1, @Param("description") String description);
 }

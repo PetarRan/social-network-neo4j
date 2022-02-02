@@ -1,7 +1,7 @@
 package neo4jproject.springframework.controllers;
 
 import neo4jproject.springframework.domain.Post;
-import neo4jproject.springframework.domain.User;
+import neo4jproject.springframework.services.LikedService;
 import neo4jproject.springframework.services.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +13,11 @@ import java.util.Collection;
 @RequestMapping("/rest/neo4j/post")
 public class PostController {
     private final PostService postService;
+    private final LikedService likedService;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, LikedService likedService) {
         this.postService = postService;
+        this.likedService = likedService;
     }
 
     @GetMapping(
@@ -38,11 +40,32 @@ public class PostController {
         return HttpStatus.ACCEPTED;
     }
 
+
     @GetMapping(
             value = "/getFollowersPosts/{mail}"
     )
     public Collection<Post> findAllMyFollowers(@PathVariable("mail")String email) {
         return postService.getMyFollowersPosts(email);
+    }
+
+    @GetMapping(
+            value = "/getLikedPosts/{mail}"
+    )
+    public Collection<Post> findLikedPosts(@PathVariable("mail")String email) {
+        return postService.findLikedPosts(email);
+    }
+
+    @PostMapping(
+            value = "/likePost",
+            produces = {"application/json"}
+    )
+    public HttpStatus addLikedPost(@RequestBody(required = true) Post post, @RequestParam("mail")String mail) {
+        try {
+            likedService.addLikedPost(post.getDescription(), mail);
+        } catch (RuntimeException e) {
+            return HttpStatus.BAD_REQUEST;
+        }
+        return HttpStatus.ACCEPTED;
     }
 
 

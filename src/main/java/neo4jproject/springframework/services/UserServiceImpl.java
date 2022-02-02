@@ -1,24 +1,23 @@
 package neo4jproject.springframework.services;
 
 import neo4jproject.springframework.domain.User;
+import neo4jproject.springframework.repositories.PostedRepository;
 import neo4jproject.springframework.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by jt on 1/10/17.
- */
 @Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private final PostedRepository postedRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PostedRepository postedRepository) {
         this.userRepository = userRepository;
+        this.postedRepository = postedRepository;
     }
 
 
@@ -74,6 +73,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Collection<User> getMyFollowers(String email) {
         return userRepository.findAllMyFollowers(email);
+    }
+
+    @Override
+    public void deleteProfile(User user) {
+        postedRepository.deleteUsersPosts(user.getEmail());
+        userRepository.deleteUser(user.getEmail());
     }
 
 }
