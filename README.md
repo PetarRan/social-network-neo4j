@@ -32,7 +32,7 @@ This is the backend of a social network application for travelers called **dabbl
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/PetarRan/social-network-neo4j/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/PetarRan/social-network-neo4j/blob/main/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Authors
 
@@ -42,7 +42,7 @@ See also the list of [contributors](https://github.com/PetarRan/social-network-n
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/PetarRan/social-network-neo4j/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/PetarRan/social-network-neo4j/blob/main/licence) file for details.
 
 ## Acknowledgments
 
