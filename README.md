@@ -2,6 +2,8 @@
 
 ![image](https://user-images.githubusercontent.com/70757499/216840707-64b65109-796c-4ba3-8c74-0d16535ca014.png)
 
+### To view the repo containing the frontend of this project, please follow this [link](https://github.com/PetarRan/social-network-neo4j-ui).
+
 This is the backend of a social network application for travelers called **dabble** built using Spring and Neo4J as the graph database. The main focus of the project is to showcase the power of graph databases in handling complex relationships and data in a social media context.
 
 ## Features
